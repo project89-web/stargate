@@ -2,8 +2,7 @@
 
 ## A 90-Day Guided Protocol Based on Declassified CIA Stargate Methods
 
-[![Release](https://img.shields.io/github/v/release/yourusername/yourrepo)](https://github.com/yourusername/yourrepo/releases)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Release](https://img.shields.io/github/v/release/yourusername/yourrepo)](https://github.com/ciphernom/stargate/releases)
 
 > "For too long, the military industrial complex has kept the secrets of the mind to themselves. Let us begin a journey to equal ourselves."
 
@@ -88,10 +87,6 @@ We welcome contributions! Here's how you can help:
 - **Share your results** and experiences
 
 Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct and submission process.
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 💰 Support the Project
 
