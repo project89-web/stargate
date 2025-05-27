@@ -40,7 +40,7 @@ To compile the LaTeX source, you'll need:
 git clone https://github.com/ciphernom/stargate.git
 cd stargate
 
-# Compile with XeLaTeX
+# Compile
 lualatex rv.tex
 ```
 
