@@ -100,7 +100,6 @@ If you find this journal useful in your consciousness exploration journey, pleas
 
 - [Amazon Book Link](https://www.amazon.com/dp/B0F9Y7FXSN)
 - [CIA Reading Room - Stargate Collection](https://www.cia.gov/readingroom/collection/stargate)
-- [Remote Viewing Community Forums](https://example.com) *(placeholder - add actual community links)*
 
 ## 📧 Contact
 
