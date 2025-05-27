@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Through the Looking Glass - Democratizing Consciousness</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1a1a2e;
+            --secondary: #16213e;
+            --accent: #0f3460;
+            --highlight: #e94560;
+            --text: #eaeaea;
+            --text-dim: #b0b0b0;
+            --success: #00d4ff;
+        }
+
+        body {
+            font-family: 'Cormorant Garamond', serif;
+            background: var(--primary);
+            color: var(--text);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            opacity: 0.1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--success);
+            border-radius: 50%;
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            from {
+                transform: translateY(100vh) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            to {
+                transform: translateY(-100vh) translateX(100px);
+                opacity: 0;
+            }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 2rem;
+            transition: all 0.3s ease;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        nav.scrolled {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .nav-links a:hover {
+            color: var(--success);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: radial-gradient(circle at center, var(--secondary) 0%, var(--primary) 100%);
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 1;
+            max-width: 800px;
+            padding: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            font-weight: 400;
+            background: linear-gradient(45deg, var(--text), var(--success));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: glow 3s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.2); }
+        }
+
+        .hero-subtitle {
+            font-size: 1.4rem;
+            color: var(--text-dim);
+            margin-bottom: 2rem;
+            font-style: italic;
+            font-weight: 400;
+        }
+
+        .cta-container {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .btn-primary {
+            background: var(--highlight);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #ff5a7a;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(233, 69, 96, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--success);
+            border: 2px solid var(--success);
+        }
+
+        .btn-secondary:hover {
+            background: var(--success);
+            color: var(--primary);
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+            font-size: 2rem;
+            color: var(--text-dim);
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-20px); }
+            60% { transform: translateX(-50%) translateY(-10px); }
+        }
+
+        /* Sections */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            font-weight: 400;
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: var(--success);
+        }
+
+        /* Philosophy Section */
+        .philosophy {
+            background: var(--secondary);
+        }
+
+        .philosophy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .philosophy-card {
+            background: var(--accent);
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .philosophy-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, var(--success) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .philosophy-card:hover::before {
+            opacity: 0.1;
+        }
+
+        .philosophy-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .philosophy-card h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        /* Interactive Demo */
+        .demo-section {
+            background: var(--primary);
+            text-align: center;
+        }
+
+        .rv-demo {
+            background: var(--secondary);
+            padding: 3rem;
+            border-radius: 10px;
+            margin-top: 2rem;
+        }
+
+        .target-display {
+            font-size: 3rem;
+            font-family: 'Montserrat', sans-serif;
+            color: var(--success);
+            margin: 2rem 0;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            font-weight: 700;
+            letter-spacing: 3px;
+        }
+
+        .target-display.active {
+            opacity: 1;
+        }
+
+        #perception-input {
+            width: 100%;
+            max-width: 500px;
+            padding: 1rem;
+            background: var(--accent);
+            border: 2px solid var(--success);
+            color: var(--text);
+            border-radius: 5px;
+            font-size: 1rem;
+            margin: 1rem 0;
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        /* Facts Section */
+        .facts-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .fact-card {
+            background: var(--accent);
+            padding: 2rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--success);
+            position: relative;
+            min-height: 150px;
+        }
+
+        /* Features */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature {
+            text-align: center;
+            padding: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .feature:hover {
+            transform: scale(1.05);
+        }
+
+        .feature h3 {
+            font-family: 'Montserrat', sans-serif;
+            margin-bottom: 1rem;
+            color: var(--success);
+        }
+
+        /* CTA Section */
+        .final-cta {
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--accent) 100%);
+            text-align: center;
+            padding: 4rem 2rem;
+            border-radius: 20px;
+            margin: 4rem auto;
+            max-width: 800px;
+        }
+
+        /* Community Section */
+        .community-links {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .philosophy-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Loading Screen */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        .loader.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loader-text {
+            font-size: 1.5rem;
+            animation: pulse 2s ease-in-out infinite;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loader" id="loader">
+        <div class="loader-text">Expanding Consciousness...</div>
+    </div>
+
+    <!-- Animated Background -->
+    <div class="bg-animation" id="bgAnimation"></div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="logo">STARGATE</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#philosophy">Philosophy</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#demo">Try It</a></li>
+                <li><a href="https://github.com/ciphernom/stargate" target="_blank">GitHub</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Through the Looking Glass</h1>
+            <p class="hero-subtitle">
+                For too long, the military-industrial complex has kept the secrets of the mind to themselves.<br>
+                It's time to democratize consciousness.
+            </p>
+            <div class="cta-container">
+                <a href="https://www.amazon.com/dp/B0F9Y7FXSN" class="btn btn-primary" target="_blank">
+                    Get the Journal
+                </a>
+                <a href="https://github.com/ciphernom/stargate" class="btn btn-secondary" target="_blank">
+                    View Source Code
+                </a>
+            </div>
+            <div class="scroll-indicator">↓</div>
+        </div>
+    </section>
+
+    <!-- Philosophy Section -->
+    <section class="philosophy" id="philosophy">
+        <h2 class="section-title">Taking Back Our Minds</h2>
+        <p style="text-align: center; color: var(--text-dim); max-width: 800px; margin: 0 auto 3rem;">
+            The CIA spent millions researching remote viewing. They found it works. 
+            Then they classified it. We're making it open source.
+        </p>
+        <div class="philosophy-grid">
+            <div class="philosophy-card">
+                <h3>Open Science</h3>
+                <p>No more secrets. Every protocol, every technique, freely available to all humanity.</p>
+            </div>
+            <div class="philosophy-card">
+                <h3>Democratize Consciousness</h3>
+                <p>Your mind's potential belongs to you, not to classified programs or corporate interests.</p>
+            </div>
+            <div class="philosophy-card">
+                <h3>Proven Methods</h3>
+                <p>Based on declassified CIA Stargate protocols that yielded statistically significant results.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Demo -->
+    <section class="demo-section" id="demo">
+        <h2 class="section-title">Experience Remote Viewing</h2>
+        <p style="text-align: center; color: var(--text-dim); margin-bottom: 2rem;">
+            Try a simplified demonstration of the Stage 1 protocol
+        </p>
+        <div class="rv-demo">
+            <p>Focus on this coordinate and describe your first impression:</p>
+            <div class="target-display" id="targetDisplay"></div>
+            <button class="btn btn-secondary" onclick="generateTarget()">Generate Target</button>
+            <br>
+            <input type="text" id="perception-input" placeholder="Enter your perception here..." style="display: none;">
+            <br>
+            <button class="btn btn-primary" id="revealBtn" style="display: none;" onclick="revealTarget()">Reveal Target</button>
+            <div id="targetReveal" style="margin-top: 2rem;"></div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features">
+        <h2 class="section-title">What's Inside</h2>
+        <div class="features-grid">
+            <div class="feature">
+                <h3>90-Day Protocol</h3>
+                <p>Structured daily exercises progressing from basic to advanced techniques</p>
+            </div>
+            <div class="feature">
+                <h3>Target Bank</h3>
+                <p>Verified practice targets for each day with feedback system</p>
+            </div>
+            <div class="feature">
+                <h3>Progress Tracking</h3>
+                <p>Analyze your development with built-in assessment tools</p>
+            </div>
+            <div class="feature">
+                <h3>Scientific Approach</h3>
+                <p>Based on declassified government research and protocols</p>
+            </div>
+            <div class="feature">
+                <h3>Open Source</h3>
+                <p>Complete LaTeX source available under GPL-3.0 license</p>
+            </div>
+            <div class="feature">
+                <h3>Community Driven</h3>
+                <p>Contribute targets, translations, and improvements</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Declassified Facts Section -->
+    <section style="background: var(--secondary);">
+        <h2 class="section-title">Declassified Truths</h2>
+        <div class="facts-container">
+            <div class="fact-card" id="factCard">
+                <h3 style="color: var(--success); margin-bottom: 1rem; font-family: 'Montserrat', sans-serif;">From the CIA Archives:</h3>
+                <p id="factText" style="font-size: 1.1rem; line-height: 1.8;">Loading...</p>
+                <p style="text-align: right; margin-top: 1rem; font-size: 0.9rem; color: var(--text-dim);" id="factSource"></p>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 2rem;">
+            <a href="https://www.cia.gov/readingroom/collection/stargate" target="_blank" class="btn btn-secondary">
+                Verify at CIA Reading Room
+            </a>
+        </div>
+    </section>
+
+
+
+    <!-- Final CTA -->
+    <section>
+        <div class="final-cta">
+            <h2 style="font-size: 2rem; margin-bottom: 1rem;">Begin Your Journey</h2>
+            <p style="margin-bottom: 2rem; color: var(--text-dim);">
+                Join thousands exploring the frontiers of human consciousness.<br>
+                Your mind is more powerful than they want you to believe.
+            </p>
+            <a href="https://www.amazon.com/dp/B0F9Y7FXSN" class="btn btn-primary" target="_blank">
+                Get the Journal - Support Open Science
+            </a>
+            <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--text-dim);">
+                100% of proceeds go to maintaining and expanding this open-source project
+            </p>
+        </div>
+    </section>
+
+    <script>
+        // Generate background particles
+        function createParticles() {
+            const bgAnimation = document.getElementById('bgAnimation');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 20 + 's';
+                particle.style.animationDuration = (20 + Math.random() * 10) + 's';
+                bgAnimation.appendChild(particle);
+            }
+        }
+
+        // Hide loader
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loader').classList.add('hidden');
+                createParticles();
+            }, 1000);
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // RV Demo with real coordinates
+        const targets = [
+            { coord: '29.9792° N, 31.1342° E', answer: 'Great Pyramid of Giza' },
+            { coord: '51.1789° N, 1.8262° W', answer: 'Stonehenge' },
+            { coord: '50.0266° N, 19.2040° E', answer: 'Auschwitz' },
+            { coord: '27.1751° N, 78.0421° E', answer: 'Taj Mahal' },
+            { coord: '13.4125° S, 72.5447° W', answer: 'Machu Picchu' },
+            { coord: '41.8902° N, 12.4922° E', answer: 'The Colosseum' },
+            { coord: '35.6852° N, 139.7528° E', answer: 'Mount Fuji' },
+            { coord: '48.8606° N, 2.3376° E', answer: 'Louvre Museum' },
+            { coord: '37.9715° S, 23.7267° E', answer: 'Temple of Poseidon' },
+            { coord: '40.6892° N, 74.0445° W', answer: 'Statue of Liberty' },
+            { coord: '35.3606° N, 138.7274° E', answer: 'Mount Fuji Summit' },
+            { coord: '25.1972° N, 55.2744° E', answer: 'Burj Khalifa' }
+        ];
+
+        let currentTarget = null;
+
+        function generateTarget() {
+            currentTarget = targets[Math.floor(Math.random() * targets.length)];
+            const display = document.getElementById('targetDisplay');
+            display.textContent = currentTarget.coord;
+            display.classList.add('active');
+            document.getElementById('perception-input').style.display = 'block';
+            document.getElementById('revealBtn').style.display = 'inline-block';
+            document.getElementById('targetReveal').innerHTML = '';
+        }
+
+        function revealTarget() {
+            const userInput = document.getElementById('perception-input').value;
+            const reveal = document.getElementById('targetReveal');
+            
+            if (!userInput.trim()) {
+                reveal.innerHTML = '<p style="color: var(--highlight);">Please enter your perception first!</p>';
+                return;
+            }
+
+            reveal.innerHTML = `
+                <h3 style="color: var(--success); font-family: 'Montserrat', sans-serif;">Target Revealed:</h3>
+                <p style="font-size: 1.5rem; margin: 1rem 0;">${currentTarget.answer}</p>
+                <p style="color: var(--text-dim);">Your perception: "${userInput}"</p>
+                <p style="margin-top: 1rem; font-style: italic;">
+                    This is a simplified demo. The full protocol teaches you to perceive 
+                    without front-loading and with proper blind conditions.
+                </p>
+            `;
+            
+            document.getElementById('perception-input').value = '';
+        }
+
+        // Real declassified facts
+        const declassifiedFacts = [
+            {
+                text: "The Stargate Project was terminated in 1995 after the CIA spent approximately $20 million over 20 years researching psychic phenomena for intelligence gathering purposes.",
+                source: "CIA-RDP96-00789R003100030001-4"
+            },
+            {
+                text: "Statistical analysis of remote viewing sessions showed results significantly above chance, with some viewers achieving accuracy rates that defied conventional explanation.",
+                source: "An Evaluation of Remote Viewing: Research and Applications, 1995"
+            },
+            {
+                text: "Remote viewing protocols were developed at Stanford Research Institute (SRI) by physicists Russell Targ and Harold Puthoff, funded by intelligence agencies.",
+                source: "CIA-RDP96-00788R001700210016-5"
+            },
+            {
+                text: "The Defense Intelligence Agency stated that remote viewing had potential intelligence value, particularly for accessing sites that were otherwise inaccessible.",
+                source: "DIA Stargate Archive, 1986"
+            },
+            {
+                text: "Controlled Remote Viewing (CRV) was developed by Ingo Swann to create a structured, teachable methodology that could be replicated and studied scientifically.",
+                source: "Coordinate Remote Viewing Manual, 1986"
+            }
+        ];
+
+        let factIndex = 0;
+
+        function showFact() {
+            const fact = declassifiedFacts[factIndex];
+            document.getElementById('factText').textContent = fact.text;
+            document.getElementById('factSource').textContent = `Source: ${fact.source}`;
+            factIndex = (factIndex + 1) % declassifiedFacts.length;
+        }
+
+        showFact();
+        setInterval(showFact, 8000);
+
+        // Add some interactivity to philosophy cards
+        document.querySelectorAll('.philosophy-card').forEach(card => {
+            card.addEventListener('click', function() {
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 200);
+            });
+        });
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections
+        document.querySelectorAll('section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(20px)';
+            section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
