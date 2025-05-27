@@ -2,7 +2,7 @@
 
 ## A 90-Day Guided Protocol Based on Declassified CIA Stargate Methods
 
-[![Release](https://img.shields.io/github/v/release/yourusername/yourrepo)](https://github.com/ciphernom/stargate/releases)
+[![Release](https://img.shields.io/github/v/release/ciphernom/stargate)](https://github.com/ciphernom/stargate/releases)
 
 > "For too long, the military industrial complex has kept the secrets of the mind to themselves. Let us begin a journey to equal ourselves."
 
