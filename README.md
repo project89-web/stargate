@@ -37,11 +37,11 @@ To compile the LaTeX source, you'll need:
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/through-the-looking-glass.git
-cd through-the-looking-glass
+git clone https://github.com/ciphernom/stargate.git
+cd stargate
 
 # Compile with XeLaTeX
-xelatex remote-viewing-journal.tex
+lualatex rv.tex
 ```
 
 **Note**: Update font paths in the document to match your system configuration.
